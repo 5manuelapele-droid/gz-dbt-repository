@@ -3,7 +3,7 @@ SELECT
 s.products_id
 , s.date_date
 , s.orders_id
-, s.revenue AS revenue
+, s.revenue 
 , s.quantity
 , p.purchase_price
 , s.quantity * p.purchase_price AS purchase_cost
