@@ -9,7 +9,35 @@ sources:
      tables:
        - name: sales
          identifier : raw_gz_sales
+         description: sales of Greenweez / we have on row per product_id found in each orders_id
+         columns :
+          - name: date_date
+            description: date de commande
+          - name: orders_id
+            description: orders id
+          - name: products_id
+            description: products id
+          - name: revenue
+            description: revenue pour un produit 
+          - name: quantity
+            description: quantity de produits
        - name: product
          identifier : raw_gz_product
+         description: products of Greenweez / we have a row per product_id and the purchase_price
+         columns : 
+          - name: products_id
+            description: products id
+          - name: purchase_price
+            description: purchase price
        - name: ship
          identifier : raw_gz_ship
+         description: ship of Greenweez / we have on row per orders_id and shipping info
+         columns :
+          - name: orders_id
+            description: orders id
+          - name: shipping_fee
+            description: shipping fee
+          - name: logcost, ship_cost
+            description: logcost
+          - name: ship_cost
+            description: ship cost
