@@ -27,6 +27,9 @@ sources:
          columns : 
           - name: products_id
             description: products id
+            tests:
+              - unique
+              - not_null
           - name: purchase_price
             description: purchase price
        - name: ship
@@ -35,9 +38,12 @@ sources:
          columns :
           - name: orders_id
             description: orders id
+            tests:
+              - unique
+              - not_null
           - name: shipping_fee
             description: shipping fee
-          - name: logcost, ship_cost
+          - name: logcost
             description: logcost
           - name: ship_cost
             description: ship cost
