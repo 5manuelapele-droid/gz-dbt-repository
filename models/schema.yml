@@ -50,6 +50,9 @@ sources:
        - name: adwords
          identifier : raw_gz_adwords
          description: adwords campaigns of Greenweez / we have on row per date_date for a campaign_key
+         tests:
+             - unique:
+                 column_name: "(date_date || '-' || campaign_key)"            
          columns :       
           - name: date_date
             description: date 
@@ -58,19 +61,132 @@ sources:
           - name: paid_source
             description: entreprise de campagne pub 
             tests: 
-              - not_null               
+              - not_null   
+          - name: campaign_key
+            description: campaign_key 
+            tests: 
+              - not_null   
+          - name: campaign_name
+            description: campaign_name
+            tests: 
+              - not_null        
+          - name: ads_cost
+            description: ads cost
+            tests: 
+              - not_null     
+          - name: impression
+            description: impression
+            tests: 
+              - not_null 
+          - name: click
+            description: click
+            tests: 
+              - not_null            
        - name: bing
          identifier : raw_gz_bing
          description: bing campaigns of Greenweez / we have on row per date_date for a campaign_key
-         columns :   
+         tests:
+             - unique:
+                 column_name: "(date_date || '-' || campaign_key)"            
+         columns :       
+          - name: date_date
+            description: date 
+            tests: 
+              - not_null  
+          - name: paid_source
+            description: entreprise de campagne pub 
+            tests: 
+              - not_null   
+          - name: campaign_key
+            description: campaign_key 
+            tests: 
+              - not_null   
+          - name: campaign_name
+            description: campaign_name
+            tests: 
+              - not_null        
+          - name: ads_cost
+            description: ads cost
+            tests: 
+              - not_null     
+          - name: impression
+            description: impression
+            tests: 
+              - not_null 
+          - name: click
+            description: click
+            tests: 
+              - not_null   
        - name: critero
          identifier : raw_gz_criteo
          description: critero campaigns of Greenweez / we have on row per date_date for a campaign_key
-         columns :   
+         tests:
+             - unique:
+                 column_name: "(date_date || '-' || campaign_key)"            
+         columns :       
+          - name: date_date
+            description: date 
+            tests: 
+              - not_null  
+          - name: paid_source
+            description: entreprise de campagne pub 
+            tests: 
+              - not_null   
+          - name: campaign_key
+            description: campaign_key 
+            tests: 
+              - not_null   
+          - name: campaign_name
+            description: campaign_name
+            tests: 
+              - not_null        
+          - name: ads_cost
+            description: ads cost
+            tests: 
+              - not_null     
+          - name: impression
+            description: impression
+            tests: 
+              - not_null 
+          - name: click
+            description: click
+            tests: 
+              - not_null   
        - name: facebook
          identifier : raw_gz_facebook
          description: facebook campaigns of Greenweez / we have on row per date_date for a campaign_key
-         columns :   
+         tests:
+             - unique:
+                 column_name: "(date_date || '-' || campaign_key)"            
+         columns :       
+          - name: date_date
+            description: date 
+            tests: 
+              - not_null  
+          - name: paid_source
+            description: entreprise de campagne pub 
+            tests: 
+              - not_null   
+          - name: campaign_key
+            description: campaign_key 
+            tests: 
+              - not_null   
+          - name: campaign_name
+            description: campaign_name
+            tests: 
+              - not_null        
+          - name: ads_cost
+            description: ads cost
+            tests: 
+              - not_null     
+          - name: impression
+            description: impression
+            tests: 
+              - not_null 
+          - name: click
+            description: click
+            tests: 
+              - not_null 
 
 models:
    - name: int_sales_margin
