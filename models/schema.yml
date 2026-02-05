@@ -47,7 +47,31 @@ sources:
             description: logcost
           - name: ship_cost
             description: ship cost
-        
+       - name: adwords
+         identifier : raw_gz_adwords
+         description: adwords campaigns of Greenweez / we have on row per date_date for a campaign_key
+         columns :       
+          - name: date_date
+            description: date 
+            tests: 
+              - not_null  
+          - name: paid_source
+            description: entreprise de campagne pub 
+            tests: 
+              - not_null               
+       - name: bing
+         identifier : raw_gz_bing
+         description: bing campaigns of Greenweez / we have on row per date_date for a campaign_key
+         columns :   
+       - name: critero
+         identifier : raw_gz_criteo
+         description: critero campaigns of Greenweez / we have on row per date_date for a campaign_key
+         columns :   
+       - name: facebook
+         identifier : raw_gz_facebook
+         description: facebook campaigns of Greenweez / we have on row per date_date for a campaign_key
+         columns :   
+
 models:
    - name: int_sales_margin
      description: sales per prod per order w purchase_cost and margin
