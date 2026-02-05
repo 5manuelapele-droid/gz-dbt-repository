@@ -318,3 +318,60 @@ models:
          description: quantity_prod_sold per day
          tests: 
          - not_null 
+
+   - name: int_campaigns
+     description: fusion des 4 campagnes
+     tests:
+         - unique:
+             column_name: "(date_date || '-' || campaign_key)"            
+     columns :       
+       - name: date_date
+         description: date 
+         tests: 
+          - not_null  
+       - name: paid_source
+         description: entreprise de campagne pub 
+         tests: 
+          - not_null   
+       - name: campaign_key
+         description: campaign_key 
+         tests: 
+          - not_null   
+       - name: campaign_name
+         description: campaign_name
+         tests: 
+          - not_null        
+       - name: ads_cost
+         description: ads cost
+         tests: 
+          - not_null     
+       - name: impression
+         description: impression
+         tests: 
+          - not_null 
+       - name: click
+         description: click
+         tests: 
+          - not_null 
+   - name: int_campaigns_daily
+     description: data campaign per day
+     tests:
+       - unique:
+           column_name: "(date_date)"  
+     columns :       
+       - name: date_date
+         description: date 
+         tests: 
+          - not_null
+       - name: daily_ads_cost
+         description: daily_ads cost
+         tests: 
+          - not_null     
+       - name: daily_impression
+         description: daily_impression
+         tests: 
+          - not_null 
+       - name: daily_click
+         description: daily_click
+         tests: 
+          - not_null
