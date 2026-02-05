@@ -1,4 +1,5 @@
- 
+{{ config( materialized='table')}} 
+
 WITH fin1 AS ( 
 SELECT 
 om.date_date 
