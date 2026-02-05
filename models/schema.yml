@@ -1,0 +1,180 @@
+
+version: 2
+
+sources:
+   - name: gz_raw_data
+     database: project-dbt-manuela
+     schema: gz_raw_data
+     loader: bigquery
+     tables:
+       - name: sales
+         identifier : raw_gz_sales
+         description: sales of Greenweez / we have on row per product_id found in each orders_id
+         columns :
+          - name: date_date
+            description: date de commande
+          - name: orders_id
+            description: orders id
+          - name: products_id
+            description: products id
+          - name: revenue
+            description: revenue pour un produit 
+          - name: quantity
+            description: quantity de produits
+       - name: product
+         identifier : raw_gz_product
+         description: products of Greenweez / we have a row per product_id and the purchase_price
+         columns : 
+          - name: products_id
+            description: products id
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            description: purchase price
+       - name: ship
+         identifier : raw_gz_ship
+         description: ship of Greenweez / we have on row per orders_id and shipping info
+         columns :
+          - name: orders_id
+            description: orders id
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: shipping fee
+          - name: logcost
+            description: logcost
+          - name: ship_cost
+            description: ship cost
+        
+models:
+   - name: int_sales_margin
+     description: sales per prod per order w purchase_cost and margin
+     tests:
+       - unique:
+           column_name: "(orders_id || '-' || products_id)"       
+     columns: 
+       - name: products_id
+         description: product key
+         tests:
+          - not_null   
+       - name: date_date
+         description: date de la commande
+         tests: 
+         - not_null         
+       - name: orders_id
+         description: order key
+         tests:
+         - not_null
+       - name: revenue
+         description: revenue per product in order
+         tests:
+         - not_null
+       - name: quantity
+         description: same prod_id qty in 1 order
+         tests:
+         - not_null
+       - name: purchase_price
+         description: purchase price per prod
+         tests:          
+         - not_null
+       - name: purchase_cost
+         description: Purchase_cost = Quantity * Purchase_price
+         tests:    
+         - not_null
+       - name: margin
+         description: Margin = Revenue - Purchase_cost
+         tests:              
+         - not_null          
+   - name: int_orders_margin
+     description: int_sales_margin per order
+     tests:
+       - unique:
+           column_name: "(orders_id)"            
+     columns: 
+       - name: orders_id
+         description: order key
+         tests:
+         - not_null
+       - name: date_date
+         description: date de la commande
+         tests: 
+         - not_null         
+       - name: revenue
+         description: revenue per order
+         tests:
+         - not_null
+       - name: quantity
+         description: prod qty per order
+         tests:
+         - not_null
+       - name: purchase_cost
+         description: Purchase_cost = Quantity * Purchase_price
+         tests:    
+         - not_null
+       - name: margin
+         description: Margin = Revenue - Purchase_cost
+         tests:              
+         - not_null          
+   - name: int_orders_operational
+     description: operational margin per order
+     tests:
+       - unique:
+           column_name: "(orders_id)"            
+     columns: 
+       - name: orders_id
+         description: order key
+         tests:
+         - not_null
+       - name: date_date
+         description: date de la commande
+         tests: 
+         - not_null   
+       - name: operational_margin
+         description: Operational_margin= margin+ shipping_fee- log_cost-ship_cost
+         tests: 
+         - not_null  
+   - name: finance_days
+     description: daily board for finance team
+     tests:
+       - unique:
+           column_name: "(date_date)"         
+     columns: 
+       - name: date_date
+         description: date de la commande
+         tests: 
+         - not_null   
+       - name: nb_transactions
+         description: nb_transactions per day
+         tests: 
+         - not_null   
+       - name: total_revenue
+         description: total_revenue per day
+         tests: 
+         - not_null   
+       - name: avg_basket
+         description: avg_basket per day
+         tests: 
+         - not_null   
+       - name: operational_margin
+         description: Operational_margin= margin+ shipping_fee- log_cost-ship_cost
+         tests: 
+         - not_null  
+       - name: total_purchase_cost
+         description: total_purchase_cost per day
+         tests: 
+         - not_null 
+
+       - name: total_shipping_fees
+         description: total_shipping_fees per day
+         tests: 
+         - not_null 
+       - name: total_logcost
+         description: total_logcost per day
+         tests: 
+         - not_null 
+       - name: quantity_prod_sold
+         description: quantity_prod_sold per day
+         tests: 
+         - not_null 
